@@ -31,7 +31,7 @@ public class Hotel {
     private String description;
 
     @AggregateMember
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "hotel_id")
     private final List<Address> addresses = new ArrayList<>();
 
@@ -43,7 +43,6 @@ public class Hotel {
         apply(Mappers.getMapper(HotelMapper.class).toEvent(command));
     }
 
-    // TODO: This hotel need to be moved to Service as we will get the ID only after the hotel is stored?
     public void handle(CreateHotelCommand command) {
         apply(Mappers.getMapper(HotelMapper.class).toEvent(command));
     }
@@ -55,16 +54,7 @@ public class Hotel {
 
     @EventSourcingHandler
     void on(HotelCreatedEvent event) {
-        this.id = event.getId();
-        this.name = event.getName();
-        this.description = event.getDescription();
-
-        event.getAddresses().forEach(eAddress -> {
-            Address address = new Address(
-                    eAddress.getId(), eAddress.getAddressLineOne(), eAddress.getAddressLineTwo(),
-                    eAddress.getCity(), eAddress.getCountry());
-            this.addresses.add(address);
-        });
+        Mappers.getMapper(HotelMapper.class).toEntity(event, this);
     }
 
     @EventSourcingHandler

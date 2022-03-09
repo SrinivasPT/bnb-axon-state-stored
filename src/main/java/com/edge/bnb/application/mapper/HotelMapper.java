@@ -7,6 +7,7 @@ import com.edge.bnb.infra.dto.HotelRequestData;
 import org.mapstruct.CollectionMappingStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring",
         collectionMappingStrategy = CollectionMappingStrategy.ADDER_PREFERRED)
@@ -16,7 +17,7 @@ public interface HotelMapper {
     CreateHotelCommand toCommand(HotelRequestData dto);
 
     @Mapping(source = "addresses", target = "addresses")
-    Hotel toEntity(CreateHotelCommand command);
+    Hotel toEntity(HotelCreatedEvent event, @MappingTarget Hotel hotel);
 
     @Mapping(source = "addresses", target = "addresses")
     HotelCreatedEvent toEvent(CreateHotelCommand command);
