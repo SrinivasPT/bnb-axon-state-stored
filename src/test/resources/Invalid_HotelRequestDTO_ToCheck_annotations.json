@@ -1,0 +1,11 @@
+{
+  "description": "Initial",
+  "addresses": [
+    {
+      "addressLineOne": "Ukraine First Address Line",
+      "addressLineTwo": "Ukraine Second Address Line",
+      "city": "Kyiv",
+      "country": "Ukraine"
+    }
+  ]
+}

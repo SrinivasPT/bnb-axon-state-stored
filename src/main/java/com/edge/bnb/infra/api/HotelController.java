@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.concurrent.CompletableFuture;
 
 @RestController
@@ -23,7 +24,7 @@ public class HotelController {
     }
 
     @PostMapping(path = "/hotel")
-    public CompletableFuture<Integer> createRoom(@RequestBody HotelRequestData dto) {
+    public CompletableFuture<Integer> createRoom(@RequestBody @Valid HotelRequestData dto) {
         return commandGateway.send(mapper.toCommand(dto));
     }
 
