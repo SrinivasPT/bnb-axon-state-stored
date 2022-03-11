@@ -3,6 +3,7 @@ package com.edge.bnb;
 import com.edge.bnb.infra.error.ErrorResponse;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import io.restassured.parsing.Parser;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -23,6 +24,7 @@ class HotelControllerTests {
     public static void setup() {
         RestAssured.baseURI = "http://localhost/";
         RestAssured.port = 8081;
+        RestAssured.defaultParser = Parser.JSON;
     }
 
     private static boolean isPalindrome(String text) {
@@ -72,12 +74,10 @@ class HotelControllerTests {
         List<String> messages = response.as(ErrorResponse.class).getDetails();
         boolean hasErrorForAboutMe = messages.stream()
                 .anyMatch(message -> message.equals("About Me must be between 10 and 200 characters"));
-
         Assertions.assertTrue(hasErrorForAboutMe, "About Me / Description Validation Error");
 
         boolean hasErrorForName = messages.stream()
                 .anyMatch(message -> message.equals("Name cannot be null"));
-
         Assertions.assertTrue(hasErrorForName, "Name Validation Error");
     }
 
@@ -86,5 +86,31 @@ class HotelControllerTests {
     @ValueSource(strings = {"racecar", "radar", "able was I ere I saw elba"})
     void palindromes(String candidate) {
         Assertions.assertTrue(isPalindrome(candidate));
+    }
+
+    @Test
+    void When_InValidInputPassed_Then_UpdateHotel_Should_FailWithProperErrorMessage() throws IOException {
+        String requestBody = new String(Files.readAllBytes(
+                Paths.get("src/test/resources/Invalid_HotelNameUpdateRequestDTO_ToCheck_Annotations.json")));
+
+        Response response = RestAssured
+                .given().contentType(ContentType.JSON).body(requestBody)
+                .when().post("/update-name")
+                .then().extract().response();
+
+        Assertions.assertEquals(400, response.statusCode());
+    }
+
+    @Test
+    void When_ValidInputPassed_Then_UpdateHotel_Should_SuccessfullyUpdate() throws IOException {
+        String requestBody = new String(Files.readAllBytes(
+                Paths.get("src/test/resources/Valid_HotelNameUpdateRequestDTO_Should_ProcessSuccessfully.json")));
+
+        Response response = RestAssured
+                .given().contentType(ContentType.JSON).body(requestBody)
+                .when().post("/update-name")
+                .then().extract().response();
+
+        Assertions.assertEquals(200, response.statusCode());
     }
 }
