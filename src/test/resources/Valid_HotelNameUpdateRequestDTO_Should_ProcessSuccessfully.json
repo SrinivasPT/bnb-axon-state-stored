@@ -1,5 +1,5 @@
 {
-  "id": 34,
-  "name": "Updated Hotel Name",
-  "description": "Initial"
+  "id": "{id}",
+  "name": "REST Assured Name",
+  "description": "From Rest Assured Name 1"
 }

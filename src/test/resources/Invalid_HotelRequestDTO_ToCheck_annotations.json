@@ -1,4 +1,6 @@
 {
-  "id": 34,
-  "description": "Test"
+  "name": "REST Assured",
+  "description": "Initial Hotel Creation",
+  "description": "Test",
+  "contactDto": []
 }

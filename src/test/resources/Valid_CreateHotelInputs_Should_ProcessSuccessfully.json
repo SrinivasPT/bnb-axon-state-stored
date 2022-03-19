@@ -1,0 +1,49 @@
+{
+  "name": "REST Assured",
+  "description": "Initial Hotel Creation",
+  "contactDto": [
+    {
+      "firstName": "Srinivas",
+      "lastName": "Peeta",
+      "typeCode": "PRIMARY",
+      "imageUrl": "/contact/profile/pic/srinivas_peeta.jpg",
+      "addressDto": [
+        {
+          "typeCode": "CURRENT",
+          "lineOne": "Aparna Cyber Commune",
+          "lineTwo": "Nallagandla",
+          "city": "Hyderabad",
+          "country": "India"
+        },
+        {
+          "typeCode": "PERMANENT",
+          "lineOne": "Padmavati Nagar",
+          "lineTwo": "Nallagandla",
+          "city": "Hyderabad",
+          "country": "India"
+        }
+      ]
+    },
+    {
+      "firstName": "Sreelatha",
+      "lastName": "Peeta",
+      "typeCode": "SECONDARY",
+      "imageUrl": "/contact/profile/pic/sreelatha_peeta.jpg",
+      "addressDto": [
+        {
+          "typeCode": "CURRENT",
+          "lineOne": "Aparna Cyber Zone",
+          "lineTwo": "Nallagandla",
+          "city": "Hyderabad",
+          "country": "India"
+        },
+        {
+          "typeCode": "PERMANENT",
+          "lineOne": "Ayodhya Nagar",
+          "city": "Vijayawada",
+          "country": "India"
+        }
+      ]
+    }
+  ]
+}

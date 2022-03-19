@@ -15,7 +15,7 @@
     <description>Bnb with Axon State Stored Aggregate</description>
     <properties>
         <java.version>11</java.version>
-        <axon.version>4.5.11</axon.version>
+        <axon.version>4.5.8</axon.version>
     </properties>
     <dependencies>
         <dependency>
